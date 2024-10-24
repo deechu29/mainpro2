@@ -43,7 +43,16 @@ class _FlowerScreenState extends State<FlowerScreen> {
               return Stack(children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20), 
+                    borderRadius: BorderRadius.circular(20),
+                    // color: Colors.amber,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(data['title']),
+                      Text("price: ${data['price'].toString()}")
+                    ],
                   ),
                   padding: EdgeInsets.all(10),
                   height: 260,

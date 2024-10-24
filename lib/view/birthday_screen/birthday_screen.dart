@@ -15,7 +15,7 @@ class BirthdayScreen extends StatefulWidget {
 class _BirthdayScreenState extends State<BirthdayScreen> {
   @override
   Widget build(BuildContext context) {
-    var birthdaygift = FirebaseFirestore.instance.collection("birthdaygift ");
+    var birthdaygift = FirebaseFirestore.instance.collection("birthdaygift");
     return //Use a SizedBox to constrain the height of the GridView
         StreamBuilder<QuerySnapshot>(
       stream: birthdaygift.snapshots(),

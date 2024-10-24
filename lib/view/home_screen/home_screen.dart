@@ -185,8 +185,8 @@ class HomeScreen extends StatelessWidget {
                       AllScreen(),
                       BirthdayScreen(),
                       FlowerScreen(),
+                      anniversaryscreen(),
                       LoveNRomanceScreen(),
-                      anniversaryscreen()
                     ],
                   ),
                 ),

@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mainpro2/view/fav_screen/fav_screen.dart';
+import 'package:mainpro2/utils/constants/color_constants.dart';
+import 'package:mainpro2/view/detail_screen/detail_screen.dart';
 
 class anniversaryscreen extends StatefulWidget {
   const anniversaryscreen({super.key});
@@ -11,24 +14,44 @@ class anniversaryscreen extends StatefulWidget {
 class _anniversaryscreenState extends State<anniversaryscreen> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600, // Adjust the height as needed
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              mainAxisExtent: 280,
-              crossAxisCount: 2),
-          itemCount: 6,
-          itemBuilder: (context, index) => Stack(children: [
+    var anniversary = FirebaseFirestore.instance.collection("anniversary");
+    return //Use a SizedBox to constrain the height of the GridView
+        StreamBuilder<QuerySnapshot>(
+      stream: anniversary.snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text("error");
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final documents = snapshot.data!.docs;
+
+        return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                mainAxisExtent: 280,
+                crossAxisCount: 2),
+            itemCount: documents.length,
+            itemBuilder: (context, index) {
+              Map<String, dynamic> data =
+                  documents[index].data()! as Map<String, dynamic>;
+
+              return Stack(children: [
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.amber,
+                    // color: Colors.amber,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Text("data")],
+                    children: [
+                      Text(data['title']),
+                      Text("price: ${data['price'].toString()}")
+                    ],
                   ),
                   padding: EdgeInsets.all(10),
                   height: 260,
@@ -39,7 +62,7 @@ class _anniversaryscreenState extends State<anniversaryscreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FavScreen(),
+                          builder: (context) => ProductDetails(),
                         ));
                   },
                   child: Container(
@@ -52,11 +75,14 @@ class _anniversaryscreenState extends State<anniversaryscreen> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.black,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(data['url'])),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20)),
                       ),
-                      height: 200,
+                      height: 180,
                       width: 300),
                 ),
                 Positioned(
@@ -69,11 +95,13 @@ class _anniversaryscreenState extends State<anniversaryscreen> {
                     decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.only(bottomRight: Radius.circular(20)),
-                      color: Colors.white,
+                      color: ColorConstanse.blue,
                     ),
                   ),
                 ),
-              ])),
+              ]);
+            });
+      },
     );
   }
 }
