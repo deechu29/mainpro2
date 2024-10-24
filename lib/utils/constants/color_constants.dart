@@ -6,4 +6,5 @@ class ColorConstanse {
   static Color white = Colors.white;
   static Color mainblack = Colors.black;
   static Color blue = Colors.blue;
+  static Color red = Colors.red;
 }

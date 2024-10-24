@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/bottom_nav_screen/widget/drawer_screen.dart';
 import 'package:mainpro2/view/cart_screen/cart_screen.dart';
-import 'package:mainpro2/view/fav_screen/fav_screen.dart';
+import 'package:mainpro2/view/sameday_screen/samedayscreen.dart';
 import 'package:mainpro2/view/home_screen/home_screen.dart';
-import 'package:mainpro2/view/profile_screen/profile_screen.dart';
+import 'package:mainpro2/view/profile_screen/profile_screen2.dart';
 
 class BottomNavbarScreen extends StatefulWidget {
   const BottomNavbarScreen({super.key});
@@ -17,9 +17,9 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
   int _selectedIndex = 0;
   final List<Widget> myscreen = [
     HomeScreen(),
-    FavScreen(),
+    samedayscreen(),
     CartScreen(),
-    ProfileScreen(),
+    ProfileScreen2(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,8 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
                     ),
                     label: 'Home'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite_border_outlined),
-                    label: "Favorite"),
+                    icon: Icon(Icons.local_shipping_outlined),
+                    label: "Same day"),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart_outlined),
                   label: "Cart",
