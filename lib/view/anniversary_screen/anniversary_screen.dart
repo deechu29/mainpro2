@@ -62,7 +62,11 @@ class _anniversaryscreenState extends State<anniversaryscreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductDetails(),
+                          builder: (context) => ProductDetails(
+                              url: data["url"],
+                              title: data["title"],
+                              price: data["price"],
+                              desc: data["desc"]),
                         ));
                   },
                   child: Container(

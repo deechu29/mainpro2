@@ -63,7 +63,11 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductDetails(),
+                          builder: (context) => ProductDetails(
+                              desc: data['desc'],
+                              price: data['price'],
+                              url: data['url'],
+                              title: data['title']),
                         ));
                   },
                   child: Container(

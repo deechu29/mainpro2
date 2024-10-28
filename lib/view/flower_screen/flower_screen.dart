@@ -63,7 +63,11 @@ class _FlowerScreenState extends State<FlowerScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductDetails(),
+                          builder: (context) => ProductDetails(
+                              url: data["url"],
+                              title: data["title"],
+                              price: data["price"],
+                              desc: data["desc"]),
                         ));
                   },
                   child: Container(

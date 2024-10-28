@@ -9,26 +9,29 @@ import 'package:mainpro2/view/fav_screen/fav_screen.dart';
 import 'package:mainpro2/view/flower_screen/flower_screen.dart';
 import 'package:mainpro2/view/love_n_romance_screen/love_n_romance_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class testingsample extends StatelessWidget {
+  const testingsample({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        // backgroundColor: ColorConstanse.mainblack,
+        backgroundColor:
+            ColorConstanse.lightBackground, // Light background color
         appBar: AppBar(
-          backgroundColor: ColorConstanse.white,
+          backgroundColor:
+              ColorConstanse.primaryColor, // Primary color for AppBar
           leading: Builder(
             builder: (context) {
               return IconButton(
                 onPressed: () {
-                  // Scaffold.of(context).openDrawer();
+                  Scaffold.of(context)
+                      .openDrawer(); // Uncomment to open a Drawer
                 },
                 icon: Icon(
                   Icons.menu,
-                  color: ColorConstanse.mainblack,
+                  color: ColorConstanse.iconColor, // Icon color (darker shade)
                 ),
               );
             },
@@ -43,7 +46,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              icon: Icon(Icons.favorite_outline),
+              icon: Icon(
+                Icons.favorite_outline,
+                color: ColorConstanse.iconColor, // Favorite icon color
+              ),
             ),
           ],
         ),
@@ -56,11 +62,17 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(
-                    label: Text("Search"),
-                    prefixIcon: Icon(Icons.search),
+                    label: Text("Search",
+                        style: TextStyle(color: ColorConstanse.labelColor)),
+                    prefixIcon:
+                        Icon(Icons.search, color: ColorConstanse.iconColor),
                     filled: true,
+                    fillColor: ColorConstanse
+                        .searchFieldBackground, // Background color for search field
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: ColorConstanse.borderColor), // Border color
                     ),
                   ),
                 ),
@@ -80,7 +92,8 @@ class HomeScreen extends StatelessWidget {
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
-                          color: Colors.amber,
+                          color: ColorConstanse
+                              .carouselBackground, // Background color for carousel item
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
@@ -104,16 +117,19 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   "Categories",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: ColorConstanse.mainblack),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: ColorConstanse
+                        .primaryTextColor, // Primary text color for titles
+                  ),
                 ),
                 TabBar(
-                  labelColor: ColorConstanse.mainblack,
-                  unselectedLabelColor: ColorConstanse.LIGHTGREY,
+                  labelColor:
+                      ColorConstanse.tabSelectedColor, // Selected tab color
+                  unselectedLabelColor:
+                      ColorConstanse.tabUnselectedColor, // Unselected tab color
                   labelStyle:
                       TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  //isScrollable: true,
                   tabs: [
                     Tab(
                       text: "All",
@@ -127,10 +143,6 @@ class HomeScreen extends StatelessWidget {
                       text: "Flower",
                       icon: Icon(Icons.local_florist_outlined),
                     ),
-                    // Tab(
-                    //   text: "Ceremony",
-                    //   icon: Icon(Icons.handshake_outlined),
-                    // ),
                     Tab(
                       text: "Love",
                       icon: Icon(Icons.favorite_outline),
@@ -138,15 +150,13 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-                // Use a SizedBox to constrain the height of the TabBarView
                 SizedBox(
-                  height: 500, // Adjust the height as needed
+                  height: 500,
                   child: TabBarView(
                     children: [
                       AllScreen(),
                       BirthdayScreen(),
                       FlowerScreen(),
-                      // anniversaryscreen(),
                       LoveNRomanceScreen(),
                     ],
                   ),

@@ -63,7 +63,11 @@ class _AllScreenState extends State<AllScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductDetails(),
+                          builder: (context) => ProductDetails(
+                              url: data["url"],
+                              title: data["title"],
+                              price: data["price"],
+                              desc: data["desc"]),
                         ));
                   },
                   child: Container(
