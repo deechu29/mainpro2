@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mainpro2/controller/login_screen_controller.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/bottom_nav_screen/bottom_nav_screen.dart';
 
 import 'package:mainpro2/view/login_screen/register_screen2.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen2 extends StatefulWidget {
   const LoginScreen2({super.key});
@@ -181,6 +183,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+                          context.read<LoginScreenController>().onLogin(
+                              email: emailController.text,
+                              pass: passController.text);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

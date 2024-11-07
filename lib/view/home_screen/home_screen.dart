@@ -17,21 +17,17 @@ class HomeScreen extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        // backgroundColor: ColorConstanse.mainblack,
+        //extendBodyBehindAppBar: true,
+        backgroundColor: ColorConstanse.mainblack,
         appBar: AppBar(
-          backgroundColor: ColorConstanse.white,
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                onPressed: () {
-                  // Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(
-                  Icons.menu,
-                  color: ColorConstanse.mainblack,
-                ),
-              );
-            },
+          backgroundColor: ColorConstanse.mainblack,
+          centerTitle: true,
+          title: Text(
+            "Gift App",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: ColorConstanse.white),
           ),
           actions: [
             IconButton(
@@ -43,7 +39,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              icon: Icon(Icons.favorite_outline),
+              icon: Icon(
+                Icons.favorite,
+                color: ColorConstanse.red,
+              ),
             ),
           ],
         ),
@@ -56,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(
+                    //   fillColor: Colors.grey[800],
                     label: Text("Search"),
                     prefixIcon: Icon(Icons.search),
                     filled: true,

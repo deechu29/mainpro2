@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/detail_screen/detail_screen.dart';
-import 'package:mainpro2/view/fav_screen/fav_screen.dart';
 
 class FlowerScreen extends StatefulWidget {
   const FlowerScreen({super.key});

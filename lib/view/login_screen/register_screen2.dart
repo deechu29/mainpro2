@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mainpro2/controller/registration_controller.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
+import 'package:mainpro2/view/bottom_nav_screen/bottom_nav_screen.dart';
 import 'package:mainpro2/view/home_screen/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen2 extends StatefulWidget {
   const RegisterScreen2({super.key});
@@ -20,6 +23,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
   bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
+    final providerobj = context.watch<RegistrationController>();
     return Scaffold(
       body: Stack(
         children: [
@@ -220,10 +224,14 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+                          context.read<RegistrationController>().onRegister(
+                              email: _emailController.text,
+                              pass: _passwordController.text,
+                              context: context);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => BottomNavbarScreen(),
                             ),
                             (route) => false,
                           );

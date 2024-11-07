@@ -24,6 +24,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // extendBodyBehindAppBar: true,
         drawer: DrawerScreen(),
         body: myscreen[_selectedIndex],
         backgroundColor: ColorConstanse.mainblack,

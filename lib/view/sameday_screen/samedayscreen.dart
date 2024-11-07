@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/detail_screen/detail_screen.dart';
@@ -24,18 +24,14 @@ class _samedayscreenState extends State<samedayscreen> {
           return Center(
               child: SizedBox(
             child: Shimmer.fromColors(
+                period: Duration(seconds: 2),
                 baseColor: Colors.grey,
                 highlightColor: Colors.white,
                 child: Column(
                   children: [
-                    Container(
-                      height: 260,
-                      width: 300,
-                      color: Colors.amber,
-                      // width: MediaQuery.of(context).size.width,
-                      // height: 50,
-                      // margin: EdgeInsets.only(left: 20, right: 20),
-                    )
+                    // width: MediaQuery.of(context).size.width,
+                    // height: 50,
+                    // margin: EdgeInsets.only(left: 20, right: 20),
                   ],
                 )),
           ));
@@ -43,9 +39,10 @@ class _samedayscreenState extends State<samedayscreen> {
 
         final documents = snapshot.data!.docs;
         return Scaffold(
+          backgroundColor: ColorConstanse.mainblack,
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: ColorConstanse.white,
+            backgroundColor: ColorConstanse.mainblack,
             title: Text(
               'Same  Day Delivery',
               style: TextStyle(color: ColorConstanse.mainblack),
@@ -70,13 +67,18 @@ class _samedayscreenState extends State<samedayscreen> {
                         InkWell(
                           child: Container(
                             decoration: BoxDecoration(
+                              color: Colors.grey[800],
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(data["title"]),
-                                Text("price: ${data["price"].toString()}"),
+                                Text(data["title"],
+                                    style:
+                                        TextStyle(color: ColorConstanse.white)),
+                                Text("price: ${data["price"].toString()}",
+                                    style:
+                                        TextStyle(color: ColorConstanse.white)),
                               ],
                             ),
                             padding: EdgeInsets.all(10),
@@ -85,37 +87,37 @@ class _samedayscreenState extends State<samedayscreen> {
                           ),
                         ),
                         Container(
-                            alignment: Alignment.topRight,
-                            child: CircleAvatar(
-                              child: Icon(
-                                Icons.favorite_outline,
-                                size: 25,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                      CachedNetworkImageProvider(data["url"])),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20)),
-                            ),
-                            height: 190,
-                            width: 300),
-                        Positioned(
-                          bottom: 20,
-                          right: 0,
-                          child: Container(
-                            child: Icon(Icons.add),
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(20)),
-                              color: ColorConstanse.blue,
-                            ),
+                          alignment: Alignment.topRight,
+                          //child:
+                          //CircleAvatar(
+                          // child: Icon(
+                          //   Icons.favorite_outline,
+                          //   size: 25,
+                          // ),
+                          //),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(data["url"])),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
                           ),
+                          height: 190,
+                          //     width: 300),
+                          // Positioned(
+                          //   bottom: 20,
+                          //   right: 0,
+                          // child: Container(
+                          //   child: Icon(Icons.add),
+                          //   height: 30,
+                          //   width: 30,
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.only(
+                          //         bottomRight: Radius.circular(20)),
+                          //     color: ColorConstanse.blue,
+                          //   ),
+                          // ),
                         ),
                       ]);
                     },
