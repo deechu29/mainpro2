@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
-import 'package:mainpro2/view/detail_screen/detail_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class samedayscreen extends StatefulWidget {

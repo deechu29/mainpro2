@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mainpro2/controller/login_screen_controller.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
-import 'package:mainpro2/view/bottom_nav_screen/bottom_nav_screen.dart';
 
 import 'package:mainpro2/view/login_screen/register_screen2.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +17,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  GlobalKey<FormState> emailkey = GlobalKey<FormState>();
-  GlobalKey<FormState> passkey = GlobalKey<FormState>();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -136,13 +134,11 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        } else if (value.length < 6) {
-                          return "password must be at least 6 characters long";
                         } else {
                           return null;
                         }
                       },
-                      key: passkey,
+
                       controller: passController,
                       //   bool obscureText = false,
                       style: TextStyle(color: ColorConstanse.white),
@@ -185,27 +181,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                         if (_formKey.currentState!.validate()) {
                           context.read<LoginScreenController>().onLogin(
                               email: emailController.text,
-                              pass: passController.text);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BottomNavbarScreen(),
-                            ),
-                            (route) => false,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Login Successful'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Invalid Input'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
+                              pass: passController.text,
+                              context: context);
                         }
                       },
                       style: ElevatedButton.styleFrom(

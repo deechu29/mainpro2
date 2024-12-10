@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/detail_screen/detail_screen.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BirthdayScreen extends StatefulWidget {
   const BirthdayScreen({super.key});
@@ -75,18 +76,35 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                         ));
                   },
                   child: Container(
-                      alignment: Alignment.topRight,
-                      // child: CircleAvatar(
-                      //   child: Icon(
-                      //     Icons.favorite_outline,
-                      //     size: 25,
-                      //   ),
-                      // ),
+
+                      // for implementation of shimmer
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                        child: CachedNetworkImage(
+                          imageUrl: data['url'],
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                              child: Container(
+                                height: 180,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20)),
+                                ),
+                              ),
+                              baseColor: ColorConstanse.white,
+                              highlightColor: ColorConstanse.grey),
+                        ),
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: CachedNetworkImageProvider(data['url'])),
+                        // image: DecorationImage(
+                        //     fit: BoxFit.cover,
+                        //     image: CachedNetworkImageProvider(data['url'])),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20)),

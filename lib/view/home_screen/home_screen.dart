@@ -2,9 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/all_screen/all_screen.dart';
-import 'package:mainpro2/view/anniversary_screen/anniversary_screen.dart';
 import 'package:mainpro2/view/birthday_screen/birthday_screen.dart';
-import 'package:mainpro2/view/detail_screen/detail_screen.dart';
 import 'package:mainpro2/view/fav_screen/fav_screen.dart';
 import 'package:mainpro2/view/flower_screen/flower_screen.dart';
 import 'package:mainpro2/view/love_n_romance_screen/love_n_romance_screen.dart';
@@ -109,8 +107,9 @@ class HomeScreen extends StatelessWidget {
                       color: ColorConstanse.mainblack),
                 ),
                 TabBar(
-                  labelColor: ColorConstanse.mainblack,
+                  labelColor: ColorConstanse.primaryColor,
                   unselectedLabelColor: ColorConstanse.LIGHTGREY,
+
                   labelStyle:
                       TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   //isScrollable: true,
@@ -140,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 // Use a SizedBox to constrain the height of the TabBarView
                 SizedBox(
-                  height: 500, // Adjust the height as needed
+                  height: 700, // Adjust the height as needed
                   child: TabBarView(
                     children: [
                       AllScreen(),

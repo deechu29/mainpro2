@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mainpro2/controller/cart_controller.dart';
 import 'package:mainpro2/controller/login_screen_controller.dart';
+import 'package:mainpro2/controller/logout_controller.dart';
 import 'package:mainpro2/controller/registration_controller.dart';
 import 'package:mainpro2/firebase_options.dart';
 
@@ -26,6 +28,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => RegistrationController()),
           ChangeNotifierProvider(
             create: (context) => LoginScreenController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => LogoutController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CartController(),
           )
         ],
         child: MaterialApp(

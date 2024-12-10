@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mainpro2/controller/cart_controller.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
 import 'package:mainpro2/view/address_screen/address_screen.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -12,249 +14,265 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  double totalAmount = 0.0;
+//  double totalAmount = 0.0;
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
-    super.initState();
-  }
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {});
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     var cartItems = FirebaseFirestore.instance.collection("Cartitems");
     // Function to calculate total amount
-    void calculateTotal(List<DocumentSnapshot> documents) {
-      double total = 0.0;
-      for (var document in documents) {
-        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-        total += (data['price'] * data['quantity']);
-      }
-      setState(() {
-        totalAmount = total;
-      });
-    }
+    // void calculateTotal(List<DocumentSnapshot> documents) {
+    //   double total = 0.0;
+    //   for (var document in documents) {
+    //     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+    //     total += (data['price'] * data['quantity']);
+    //   }
+    //   setState(() {
+    //     totalAmount = total;
+    //   });
+    // }
 
-    void incrementQuantity(DocumentSnapshot document) async {
-      int currentQuantity = document['quantity'];
-      await cartItems
-          .doc(document.id)
-          .update({'quantity': currentQuantity + 1});
-    }
+    // void incrementQuantity(DocumentSnapshot document) async {
+    //   int currentQuantity = document['quantity'];
+    //   await cartItems
+    //       .doc(document.id)
+    //       .update({'quantity': currentQuantity + 1});
+    // }
 
-    void decrementQuantity(DocumentSnapshot document) async {
-      int currentQuantity = document['quantity'];
-      if (currentQuantity > 1) {
-        await cartItems
-            .doc(document.id)
-            .update({'quantity': currentQuantity - 1});
-      }
-    }
+    // void decrementQuantity(DocumentSnapshot document) async {
+    //   int currentQuantity = document['quantity'];
+    //   if (currentQuantity > 1) {
+    //     await cartItems
+    //         .doc(document.id)
+    //         .update({'quantity': currentQuantity - 1});
+    //   }
+    // }
 
     return Scaffold(
-      backgroundColor: ColorConstanse.mainblack,
-      appBar: AppBar(
         backgroundColor: ColorConstanse.mainblack,
-        centerTitle: true,
-        title: Text(
-          'CartScreen',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: ColorConstanse.white),
+        appBar: AppBar(
+          backgroundColor: ColorConstanse.mainblack,
+          centerTitle: true,
+          title: Text(
+            'CartScreen',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: ColorConstanse.white),
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    StreamBuilder<QuerySnapshot>(
-                      stream: cartItems.snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return const Text("error");
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
+        body: Consumer<CartController>(
+          builder: (context, cartpro, child) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          StreamBuilder<QuerySnapshot>(
+                            stream: cartItems.snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return const Text("error");
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
 
-                        final documents = snapshot.data!.docs;
-                        // calculateTotal(documents);
-                        return ListView.separated(
-                            physics: ScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> data = documents[index]
-                                  .data()! as Map<String, dynamic>;
-                              return Card(
-                                color: Colors
-                                    .grey[900], // Dark background for card
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // Image container for the gift with a fallback for null or empty imageUrl
-                                      Container(
-                                        width: 80,
-                                        height: 80,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                data['url']), // Fallback image
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-
-                                      SizedBox(
-                                          width:
-                                              16), // Add spacing between image and text
-
-                                      // Gift Name and Price
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                              final documents = snapshot.data!.docs;
+                              cartpro.updateTotalAmount(documents);
+                              return ListView.separated(
+                                  physics: ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> data = documents[index]
+                                        .data()! as Map<String, dynamic>;
+                                    num itemQty = data["quantity"];
+                                    return Card(
+                                      color: Colors.grey[
+                                          900], // Dark background for card
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              data['title'],
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .white, // White text for dark background
+                                            // Image container for the gift with a fallback for null or empty imageUrl
+                                            Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                image: DecorationImage(
+                                                  image: CachedNetworkImageProvider(
+                                                      data[
+                                                          'url']), // Fallback image
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(height: 8),
-                                            Text(
-                                              data["price"].toString(),
-                                              style: TextStyle(
-                                                  color: Colors
-                                                      .white), // White price text
+
+                                            SizedBox(
+                                                width:
+                                                    16), // Add spacing between image and text
+
+                                            // Gift Name and Price
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    data['title'],
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors
+                                                          .white, // White text for dark background
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 8),
+                                                  Text(
+                                                    data["price"].toString(),
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .white), // White price text
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            // Quantity Selector
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    //decrementing quantity
+                                                    cartpro.decrementQuantity(
+                                                        documents[index].id,
+                                                        itemQty);
+                                                  },
+                                                  icon: Icon(
+                                                      Icons
+                                                          .remove_circle_outline,
+                                                      color: Colors.white),
+                                                ),
+                                                Text(
+                                                  data['quantity'].toString(),
+                                                  style: TextStyle(
+                                                      color: Colors
+                                                          .white), // White quantity text
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    cartpro.incrementQuantity(
+                                                        documents[index].id,
+                                                        itemQty);
+                                                  },
+                                                  //onAdd,
+                                                  icon: Icon(
+                                                      Icons.add_circle_outline,
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+
+                                            // Remove from Cart
+                                            IconButton(
+                                              onPressed: () {
+                                                cartpro.removeCartItem(
+                                                    documents[index].id);
+                                              },
+                                              //onDelete,
+                                              icon: Icon(Icons.delete_outline,
+                                                  color: Colors.redAccent),
                                             ),
                                           ],
                                         ),
                                       ),
-
-                                      // Quantity Selector
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              decrementQuantity(
-                                                  documents[index]);
-                                            },
-                                            icon: Icon(
-                                                Icons.remove_circle_outline,
-                                                color: Colors.white),
-                                          ),
-                                          Text(
-                                            data['quantity'].toString(),
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .white), // White quantity text
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              incrementQuantity(
-                                                  documents[index]);
-                                            },
-                                            //onAdd,
-                                            icon: Icon(Icons.add_circle_outline,
-                                                color: Colors.white),
-                                          ),
-                                        ],
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
+                                        height: 10,
                                       ),
-
-                                      // Remove from Cart
-                                      IconButton(
-                                        onPressed: () async {
-                                          await cartItems
-                                              .doc(documents[index].id)
-                                              .delete();
-                                        },
-                                        //onDelete,
-                                        icon: Icon(Icons.delete_outline,
-                                            color: Colors.redAccent),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
+                                  itemCount: documents.length);
                             },
-                            separatorBuilder: (context, index) => SizedBox(
-                                  height: 10,
-                                ),
-                            itemCount: documents.length);
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Divider(color: Colors.white), // White divider for black theme
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white, // White text
-                        ),
+                          )
+                        ],
                       ),
-                      Text(
-                        'total',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white, // White text
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  SizedBox(height: 16),
-                  // Checkout Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white, // Black text on button
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddressScreen(),
-                            ));
-                      },
-                      child: Text('Proceed to Checkout'),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Divider(
+                            color:
+                                Colors.white), // White divider for black theme
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total:',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white, // White text
+                              ),
+                            ),
+                            Text(
+                              "₹${cartpro.totalAmount}",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white, // White text
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16),
+                        // Checkout Button
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              backgroundColor:
+                                  Colors.white, // Black text on button
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddressScreen(
+                                        totalamount: cartpro.totalAmount),
+                                  ));
+                            },
+                            child: Text('Proceed to Checkout'),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          },
+        ));
   }
 }
 

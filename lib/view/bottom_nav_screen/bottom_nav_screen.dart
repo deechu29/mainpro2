@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mainpro2/utils/constants/color_constants.dart';
-import 'package:mainpro2/view/bottom_nav_screen/widget/drawer_screen.dart';
+
 import 'package:mainpro2/view/cart_screen/cart_screen.dart';
 import 'package:mainpro2/view/sameday_screen/samedayscreen.dart';
 import 'package:mainpro2/view/home_screen/home_screen.dart';
@@ -25,7 +25,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         // extendBodyBehindAppBar: true,
-        drawer: DrawerScreen(),
+
         body: myscreen[_selectedIndex],
         backgroundColor: ColorConstanse.mainblack,
         bottomNavigationBar: ClipRRect(
@@ -48,6 +48,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
                     backgroundColor: ColorConstanse.white,
                     icon: Icon(
                       Icons.home,
+                      
                       color: Colors.white,
                     ),
                     label: 'Home'),

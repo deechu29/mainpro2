@@ -228,27 +228,6 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                               email: _emailController.text,
                               pass: _passwordController.text,
                               context: context);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BottomNavbarScreen(),
-                            ),
-                            (route) => false,
-                          );
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Registration Successful'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Invalid Input'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
