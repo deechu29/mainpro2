@@ -49,8 +49,12 @@ class _FlowerScreenState extends State<FlowerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(data['title']),
-                      Text("price: ${data['price'].toString()}")
+                      Text(
+                        data['title'],
+                        style: TextStyle(color: ColorConstanse.white),
+                      ),
+                      Text("price: ${data['price'].toString()}",
+                          style: TextStyle(color: ColorConstanse.white))
                     ],
                   ),
                   padding: EdgeInsets.all(10),
@@ -71,12 +75,12 @@ class _FlowerScreenState extends State<FlowerScreen> {
                   },
                   child: Container(
                       alignment: Alignment.topRight,
-                      child: CircleAvatar(
-                        child: Icon(
-                          Icons.favorite_outline,
-                          size: 25,
-                        ),
-                      ),
+                      // child: CircleAvatar(
+                      //   child: Icon(
+                      //     Icons.favorite_outline,
+                      //     size: 25,
+                      //   ),
+                      // ),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
@@ -89,20 +93,20 @@ class _FlowerScreenState extends State<FlowerScreen> {
                       height: 180,
                       width: 300),
                 ),
-                Positioned(
-                  bottom: 20,
-                  right: 0,
-                  child: Container(
-                    child: Icon(Icons.add),
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(20)),
-                      color: ColorConstanse.blue,
-                    ),
-                  ),
-                ),
+                //  Positioned(
+                //  bottom: 20,
+                //  right: 0,
+                // child: Container(
+                //   child: Icon(Icons.add),
+                //   height: 30,
+                //   width: 30,
+                //   decoration: BoxDecoration(
+                //     borderRadius:
+                //         BorderRadius.only(bottomRight: Radius.circular(20)),
+                //     color: ColorConstanse.blue,
+                //   ),
+                // ),
+                //  ),
               ]);
             });
       },

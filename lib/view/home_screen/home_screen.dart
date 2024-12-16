@@ -62,43 +62,43 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
-                CarouselSlider(
-                  items: List.generate(
-                    6,
-                    (index) => InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ProductDetails(),
-                        //   ),
-                        // );
-                      },
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              "https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  options: CarouselOptions(
-                    autoPlayInterval: Duration(seconds: 2),
-                    viewportFraction: 1.0,
-                    enlargeCenterPage: true,
-                    enlargeFactor: .2,
-                    height: 150,
-                    autoPlay: true,
-                  ),
-                ),
-                SizedBox(height: 20),
+                //SizedBox(height: 30),
+                // CarouselSlider(
+                //   items: List.generate(
+                //     6,
+                //     (index) => InkWell(
+                //       onTap: () {
+                //         // Navigator.push(
+                //         //   context,
+                //         //   MaterialPageRoute(
+                //         //     builder: (context) => ProductDetails(),
+                //         //   ),
+                //         // );
+                //       },
+                //       child: Container(
+                //         height: 40,
+                //         decoration: BoxDecoration(
+                //           color: Colors.amber,
+                //           image: DecorationImage(
+                //             fit: BoxFit.cover,
+                //             image: NetworkImage(
+                //               "https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                //   options: CarouselOptions(
+                //     autoPlayInterval: Duration(seconds: 2),
+                //     viewportFraction: 1.0,
+                //     enlargeCenterPage: true,
+                //     enlargeFactor: .2,
+                //     height: 150,
+                //     autoPlay: true,
+                //   ),
+                // ),
+                //  SizedBox(height: 20),
                 Text(
                   "Categories",
                   style: TextStyle(
